@@ -10,3 +10,9 @@
 	--main-color: #9966cc;
 	--accent-color: #84a07c;
 }
+
+.container {
+	height: clamp(600px, 100vh, 1920px);
+	display: grid;
+	grid-template-rows: 80px 1fr;
+}
