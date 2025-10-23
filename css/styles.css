@@ -1,0 +1,12 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--main-color: #9966cc;
+	--accent-color: #84a07c;
+}
