@@ -9,12 +9,6 @@ function Book(id, name, author, page, read) {
 	this.read = read;
 }
 
-let object1 = new Book(1, 'Luminae', 'Shishi Hiiragi', '123', 'read');
-let object2 = new Book(2, 'Verdants', 'Shishi Hiiragi', '145', 'read');
-
-myLibrary.push(object1);
-myLibrary.push(object2);
-
 function init() {
 	// Initialize event listeners
 	const container = document.querySelector('.container');
@@ -110,7 +104,7 @@ function addBookToLibrary (e) {
 	const pagesInput = document.querySelector('#pages');
 	const statusSelect = document.querySelector('#status');
 
-	const id = crypto.randomUUID;
+	const id = crypto.randomUUID();
 	const title = titleInput.value;
 	const author = authorInput.value;
 	const pages = pagesInput.value;
@@ -118,7 +112,17 @@ function addBookToLibrary (e) {
 
 	const newBook = new Book(id, title, author, pages, statusSelect);
 	myLibrary.push(newBook);
+	closeBookModal();
+	refreshLibrary();
 	displayBooks();
+}
+
+function refreshLibrary () {
+	let books = document.querySelectorAll('.book');
+	let libraryWrapper = document.querySelector('.wrapper');
+	books.forEach(book => {
+		libraryWrapper.removeChild(book);
+	})
 }
 
 init();
