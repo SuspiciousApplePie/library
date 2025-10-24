@@ -19,6 +19,7 @@ function init() {
 	// Initialize event listeners
 	const container = document.querySelector('.container');
 	container.addEventListener('click', getClick);
+	displayBooks();
 }
 
 function getClick(e) {
@@ -31,6 +32,9 @@ function getClick(e) {
 		closeBookModal();
 	}
 	console.log(e.target);
+
+	// Adding book
+	if (e.target.id === 'addBookBtn') addBookToLibrary(e);
 }
 
 function showBookModal() {
@@ -66,10 +70,12 @@ function displayBooks() {
 		let description = document.createElement('div');
 		description.className = 'description';
 		
+		// Author name
 		let author = document.createElement('p');
 		author.textContent = `Written by: ${book.author}`;
 		description.appendChild(author);
-		
+
+		// Book description
 		let pageCount = document.createElement('p');
 		pageCount.textContent = `${book.page} pages`;
 		description.appendChild(pageCount);
@@ -80,11 +86,13 @@ function displayBooks() {
 		let toolBox = document.createElement('div');
 		toolBox.className = 'toolbox'
 
+		// Status toggle button
 		let statusBtn = document.createElement('button');
 		statusBtn.type = 'button';
 		statusBtn.textContent = 'Mark as read';
 		toolBox.appendChild(statusBtn);
 
+		// Delete button
 		let deleteBtn = document.createElement('button');
 		deleteBtn.type = 'button';
 		deleteBtn.textContent = 'Delete';
@@ -94,5 +102,23 @@ function displayBooks() {
 	});
 }
 
-displayBooks();
+function addBookToLibrary (e) {
+	e.preventDefault();
+	// This will push new books to library
+	const titleInput = document.querySelector('#title');
+	const authorInput = document.querySelector('#author');
+	const pagesInput = document.querySelector('#pages');
+	const statusSelect = document.querySelector('#status');
+
+	const id = crypto.randomUUID;
+	const title = titleInput.value;
+	const author = authorInput.value;
+	const pages = pagesInput.value;
+	const status = statusSelect.value;
+
+	const newBook = new Book(id, title, author, pages, statusSelect);
+	myLibrary.push(newBook);
+	displayBooks();
+}
+
 init();
