@@ -75,36 +75,39 @@
 	justify-self: end;
 }
 
-.container #addBook {
-	display: grid;
+#addBookModal {
 	justify-self: center;
 	align-self: center;
+}
+
+#addBookModal .modal-container {
+	display: grid;
 	row-gap: 8px;
 	padding: 1rem;
 	width: 30vw;
 }
 
-#addBook h1 {
+.modal-container h1 {
 	font-size: 1.5rem;
 }
-#addBook form {
+.modal-container form {
 	display: grid;
 	grid-template-rows: repeat(4, 1fr);
 	row-gap: 10px;
 }
 
-#addBook .form-control {
+.modal-container .form-control {
 	display: grid;
 	grid-template-rows: repeat(2, 1fr);
 	row-gap: 5px;
 }
 
-#addBook input,
-#addBook select {
+.modal-container input,
+.modal-container select {
 	height: 30px;
 	padding: 5px;
 }
 
-#addBook .toolbox {
+.modal-container .toolbox {
 	justify-self: end;
 }
