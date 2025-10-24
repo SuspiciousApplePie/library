@@ -75,6 +75,10 @@
 	justify-self: end;
 }
 
+.book button {
+	margin: 5px;
+}
+
 #addBookModal {
 	justify-self: center;
 	align-self: center;
