@@ -88,7 +88,7 @@
 	display: grid;
 	row-gap: 8px;
 	padding: 1rem;
-	width: 30vw;
+	width: clamp(300px, 30vw, 1400px);
 }
 
 .modal-container h1 {
@@ -110,6 +110,7 @@
 .modal-container select {
 	height: 30px;
 	padding: 5px;
+	width: clamp(250px, 100%, 600px);
 }
 
 .modal-container .toolbox {
