@@ -107,6 +107,10 @@ function displayBooks() {
 function addBookToLibrary (e) {
 	e.preventDefault();
 	// This will push new books to library
+
+	// This will be used for resetting form
+	const addBookForm = document.querySelector('#addBookForm');
+	// This will select all fields
 	const titleInput = document.querySelector('#title');
 	const authorInput = document.querySelector('#author');
 	const pagesInput = document.querySelector('#pages');
@@ -122,6 +126,7 @@ function addBookToLibrary (e) {
 	const newBook = new Book(id, title, author, pages, status);
 	myLibrary.push(newBook);
 	closeBookModal();
+	addBookForm.reset();
 	refreshLibrary();
 	displayBooks();
 }
