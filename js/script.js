@@ -31,7 +31,8 @@ function getClick(e) {
 	if (e.target.id === 'addBookBtn') addBookToLibrary(e);
 	// Delete book
 	else if (e.target.className === 'delete-book-btn') removeBookFromLibrary(e);
-
+	// Toggle status
+	else if (e.target.className === 'toggle-status-btn') changeReadStatus(e);
 
 }
 
@@ -87,7 +88,7 @@ function displayBooks() {
 		// Status toggle button
 		let statusBtn = document.createElement('button');
 		statusBtn.type = 'button';
-		console.log(book.read);
+		statusBtn.className = 'toggle-status-btn';
 		if (book.read === 'read') statusBtn.textContent = 'Mark as read';
 		else if(book.read === 'not read') statusBtn.textContent = 'Mark as unread';
 		toolBox.appendChild(statusBtn);
@@ -123,7 +124,6 @@ function addBookToLibrary (e) {
 	closeBookModal();
 	refreshLibrary();
 	displayBooks();
-	console.log(myLibrary);
 }
 
 function refreshLibrary () {
@@ -139,7 +139,6 @@ function removeBookFromLibrary (e) {
 	// This will remove the book in myLibrary list
 	const books = document.querySelectorAll('.book');
 	const bookId = e.target.parentElement.parentElement.dataset.bookId;
-	const bookPosition = myLibrary.indexOf(bookId);
 
 	// Update the library using reduce
 	const newLibrary = myLibrary.reduce((updatedLib, book) => {
@@ -152,4 +151,23 @@ function removeBookFromLibrary (e) {
 	displayBooks();
 }
 
+function changeReadStatus(e) {
+	// This will match the selected id
+
+	const bookId = e.target.parentElement.parentElement.dataset.bookId;
+	myLibrary.forEach(book => {
+		if (book.id === bookId) book.toggleRead(e);
+	})
+}
+
+Book.prototype.toggleRead = function (e) {
+	// This will change the read status of matching object
+	if (this.read === 'not read') {
+		this.read = 'read'
+		e.target.textContent = 'Mark as read';
+	} else if (this.read === 'read') {
+		this.read = 'not read';
+		e.target.textContent = 'Mark as unread'; 
+	}
+}
 init();
