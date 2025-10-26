@@ -29,6 +29,10 @@ function getClick(e) {
 
 	// Adding book
 	if (e.target.id === 'addBookBtn') addBookToLibrary(e);
+	// Delete book
+	else if (e.target.className === 'delete-book-btn') removeBookFromLibrary(e);
+
+
 }
 
 function showBookModal() {
@@ -51,7 +55,7 @@ function displayBooks() {
 		// This will make a new book card inside wrapper
 		let bookCard = document.createElement('div');
 		bookCard.className = 'book';
-		bookCard.id = book.id;
+		bookCard.dataset.bookId = book.id;
 		libraryWrapper.appendChild(bookCard);
 
 		// This will add the title
@@ -89,6 +93,7 @@ function displayBooks() {
 		// Delete button
 		let deleteBtn = document.createElement('button');
 		deleteBtn.type = 'button';
+		deleteBtn.className = 'delete-book-btn';
 		deleteBtn.textContent = 'Delete';
 		toolBox.appendChild(deleteBtn);
 
@@ -104,6 +109,7 @@ function addBookToLibrary (e) {
 	const pagesInput = document.querySelector('#pages');
 	const statusSelect = document.querySelector('#status');
 
+	// this will assign the user input and generated uuid for the book
 	const id = crypto.randomUUID();
 	const title = titleInput.value;
 	const author = authorInput.value;
@@ -115,14 +121,33 @@ function addBookToLibrary (e) {
 	closeBookModal();
 	refreshLibrary();
 	displayBooks();
+	console.log(myLibrary);
 }
 
 function refreshLibrary () {
+	// this will remove clear the books inside the wrapper
 	let books = document.querySelectorAll('.book');
 	let libraryWrapper = document.querySelector('.wrapper');
 	books.forEach(book => {
 		libraryWrapper.removeChild(book);
 	})
+}
+
+function removeBookFromLibrary (e) {
+	// This will remove the book in myLibrary list
+	const books = document.querySelectorAll('.book');
+	const bookId = e.target.parentElement.parentElement.dataset.bookId;
+	const bookPosition = myLibrary.indexOf(bookId);
+
+	// Update the library using reduce
+	const newLibrary = myLibrary.reduce((updatedLib, book) => {
+		if (book.id !== bookId) updatedLib.push(book);
+		return updatedLib;
+	}, []);
+	
+	myLibrary = newLibrary;
+	refreshLibrary();
+	displayBooks();
 }
 
 init();
