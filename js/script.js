@@ -87,7 +87,9 @@ function displayBooks() {
 		// Status toggle button
 		let statusBtn = document.createElement('button');
 		statusBtn.type = 'button';
-		statusBtn.textContent = 'Mark as read';
+		console.log(book.read);
+		if (book.read === 'read') statusBtn.textContent = 'Mark as read';
+		else if(book.read === 'not read') statusBtn.textContent = 'Mark as unread';
 		toolBox.appendChild(statusBtn);
 
 		// Delete button
@@ -116,7 +118,7 @@ function addBookToLibrary (e) {
 	const pages = pagesInput.value;
 	const status = statusSelect.value;
 
-	const newBook = new Book(id, title, author, pages, statusSelect);
+	const newBook = new Book(id, title, author, pages, status);
 	myLibrary.push(newBook);
 	closeBookModal();
 	refreshLibrary();
