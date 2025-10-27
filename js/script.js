@@ -96,8 +96,8 @@ function createBookCard(libraryWrapper, book) {
 	statusBtn.type = 'button';
 	statusBtn.className = 'toggle-status-btn';
 		
-	if (book.read === 'read') statusBtn.textContent = 'Mark as read';
-	else if(book.read === 'not read') statusBtn.textContent = 'Mark as unread';
+	if (book.read === 'read') statusBtn.textContent = 'Mark as unread';
+	else if(book.read === 'not read') statusBtn.textContent = 'Mark as read';
 	toolBox.appendChild(statusBtn);
 
 	// Delete button
@@ -176,10 +176,10 @@ Book.prototype.toggleRead = function (e) {
 	// This will change the read status of matching object
 	if (this.read === 'not read') {
 		this.read = 'read'
-		e.target.textContent = 'Mark as read';
+		e.target.textContent = 'Mark as unread';
 	} else if (this.read === 'read') {
 		this.read = 'not read';
-		e.target.textContent = 'Mark as unread'; 
+		e.target.textContent = 'Mark as read'; 
 	}
 }
 init();
