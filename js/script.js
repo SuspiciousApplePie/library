@@ -52,56 +52,62 @@ function displayBooks() {
 	// This will display the books in the list.
 	const libraryWrapper = document.querySelector('.wrapper');
 	myLibrary.forEach(book => {
-
-		// This will make a new book card inside wrapper
-		let bookCard = document.createElement('div');
-		bookCard.className = 'book';
-		bookCard.dataset.bookId = book.id;
-		libraryWrapper.appendChild(bookCard);
-
-		// This will add the title
-		let bookTitle = document.createElement('h1');
-		bookTitle.className = 'title';
-		bookTitle.textContent = book.name;
-		bookCard.appendChild(bookTitle);
-
-		// This will add the description
-		let description = document.createElement('div');
-		description.className = 'description';
-		
-		// Author name
-		let author = document.createElement('p');
-		author.textContent = `Written by: ${book.author}`;
-		description.appendChild(author);
-
-		// Book description
-		let pageCount = document.createElement('p');
-		pageCount.textContent = `${book.page} pages`;
-		description.appendChild(pageCount);
-
-		bookCard.appendChild(description);
-
-		// This will add the buttons
-		let toolBox = document.createElement('div');
-		toolBox.className = 'toolbox'
-
-		// Status toggle button
-		let statusBtn = document.createElement('button');
-		statusBtn.type = 'button';
-		statusBtn.className = 'toggle-status-btn';
-		if (book.read === 'read') statusBtn.textContent = 'Mark as read';
-		else if(book.read === 'not read') statusBtn.textContent = 'Mark as unread';
-		toolBox.appendChild(statusBtn);
-
-		// Delete button
-		let deleteBtn = document.createElement('button');
-		deleteBtn.type = 'button';
-		deleteBtn.className = 'delete-book-btn';
-		deleteBtn.textContent = 'Delete';
-		toolBox.appendChild(deleteBtn);
-
-		bookCard.appendChild(toolBox);
+		createBookCard(libraryWrapper, book);
 	});
+}
+
+
+function createBookCard(libraryWrapper, book) {
+
+	// This will make a new book card inside wrapper
+	let bookCard = document.createElement('div');
+	bookCard.className = 'book';
+	bookCard.dataset.bookId = book.id;
+	libraryWrapper.appendChild(bookCard);
+
+	// This will add the title
+	let bookTitle = document.createElement('h1');
+	bookTitle.className = 'title';
+	bookTitle.textContent = book.name;
+	bookCard.appendChild(bookTitle);
+
+	// This will add the description
+	let description = document.createElement('div');
+	description.className = 'description';
+		
+	// Author name
+	let author = document.createElement('p');
+	author.textContent = `Written by: ${book.author}`;
+	description.appendChild(author);
+
+	// Book description
+	let pageCount = document.createElement('p');
+	pageCount.textContent = `${book.page} pages`;
+	description.appendChild(pageCount);
+
+	bookCard.appendChild(description);
+
+	// This will add the buttons
+	let toolBox = document.createElement('div');
+	toolBox.className = 'toolbox'
+
+	// Status toggle button
+	let statusBtn = document.createElement('button');
+	statusBtn.type = 'button';
+	statusBtn.className = 'toggle-status-btn';
+		
+	if (book.read === 'read') statusBtn.textContent = 'Mark as read';
+	else if(book.read === 'not read') statusBtn.textContent = 'Mark as unread';
+	toolBox.appendChild(statusBtn);
+
+	// Delete button
+	let deleteBtn = document.createElement('button');
+	deleteBtn.type = 'button';
+	deleteBtn.className = 'delete-book-btn';
+	deleteBtn.textContent = 'Delete';
+	toolBox.appendChild(deleteBtn);
+
+	bookCard.appendChild(toolBox);
 }
 
 function addBookToLibrary (e) {
@@ -123,6 +129,7 @@ function addBookToLibrary (e) {
 	const pages = pagesInput.value;
 	const status = statusSelect.value;
 
+	// Add new bookS
 	const newBook = new Book(id, title, author, pages, status);
 	myLibrary.push(newBook);
 	closeBookModal();
