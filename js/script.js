@@ -142,7 +142,6 @@ function addBookToLibrary (e) {
 
 function removeBookFromLibrary (e) {
 	// This will remove the book in myLibrary list
-	const books = document.querySelectorAll('.book');
 	const bookId = e.target.parentElement.parentElement.dataset.bookId;
 
 	// Update the library using filter
