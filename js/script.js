@@ -154,10 +154,12 @@ function removeBookFromLibrary (e) {
 
 	// Update the library using filter
 	const newLibrary = myLibrary.filter(book => book.id !== bookId);
-	
 	myLibrary = newLibrary;
-	refreshLibrary();
-	displayBooks();
+
+	// Update the UI after change
+	const bookCard = document.querySelector(`[data-book-id="${bookId}"]`);
+	bookCard.remove();
+	console.log(myLibrary)
 }
 
 function changeReadStatus(e) {
