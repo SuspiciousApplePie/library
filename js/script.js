@@ -49,8 +49,11 @@ function closeBookModal() {
 }
 
 function displayBooks() {
-	// This will display the books in the list.
+	// Refresh the page
 	const libraryWrapper = document.querySelector('.wrapper');
+	libraryWrapper.innerHTML = '';
+
+	// This will display the books in the list.
 	myLibrary.forEach(book => {
 		createBookCard(libraryWrapper, book);
 	});
@@ -134,17 +137,7 @@ function addBookToLibrary (e) {
 	myLibrary.push(newBook);
 	closeBookModal();
 	addBookForm.reset();
-	refreshLibrary();
 	displayBooks();
-}
-
-function refreshLibrary () {
-	// this will remove clear the books inside the wrapper
-	let books = document.querySelectorAll('.book');
-	let libraryWrapper = document.querySelector('.wrapper');
-	books.forEach(book => {
-		libraryWrapper.removeChild(book);
-	})
 }
 
 function removeBookFromLibrary (e) {
