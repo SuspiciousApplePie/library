@@ -152,11 +152,8 @@ function removeBookFromLibrary (e) {
 	const books = document.querySelectorAll('.book');
 	const bookId = e.target.parentElement.parentElement.dataset.bookId;
 
-	// Update the library using reduce
-	const newLibrary = myLibrary.reduce((updatedLib, book) => {
-		if (book.id !== bookId) updatedLib.push(book);
-		return updatedLib;
-	}, []);
+	// Update the library using filter
+	const newLibrary = myLibrary.filter(book => book.id !== bookId);
 	
 	myLibrary = newLibrary;
 	refreshLibrary();
