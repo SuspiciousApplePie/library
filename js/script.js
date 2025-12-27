@@ -1,12 +1,23 @@
 let myLibrary = [];
 
-function Book(id, name, author, page, read) {
-	// Book constructor will be used on creating books.
-	this.id = id;
-	this.name = name;
-	this.author = author;
-	this.page = page;
-	this.read = read;
+class Book {
+	constructor (id, name, author, page, read) {
+		this.id = id;
+		this.name = name;
+		this.author = author;
+		this.page = page;
+		this.read = read;
+	}
+
+	toggleRead (e) {
+		if (this.read === 'not read') {
+			this.read = 'read'
+			e.target.textContent = 'Mark as unread';
+		} else if (this.read === 'read') {
+			this.read = 'not read';
+			e.target.textContent = 'Mark as read'; 
+		}
+	}
 }
 
 function init() {
@@ -163,14 +174,4 @@ function changeReadStatus(e) {
 	})
 }
 
-Book.prototype.toggleRead = function (e) {
-	// This will change the read status of matching object
-	if (this.read === 'not read') {
-		this.read = 'read'
-		e.target.textContent = 'Mark as unread';
-	} else if (this.read === 'read') {
-		this.read = 'not read';
-		e.target.textContent = 'Mark as read'; 
-	}
-}
 init();
