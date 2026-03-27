@@ -26,10 +26,10 @@
 			<dialog id="addBookModal">
 				<div class="modal-container">
 					<h1>Add a book</h1>
-					<form method="post" formmethod="dialog" id="addBookForm">
+					<form method="post" formmethod="dialog" id="addBookForm" novalidate>
 						<div class="form-control">
 							<label for="title">Title:</label>
-							<input type="text" name="title" id="title" autofocus required>
+							<input type="text" name="title" id="title" minlength="5" autofocus required>
 						</div>
 						<div class="form-control">
 							<label for="author">Author:</label>

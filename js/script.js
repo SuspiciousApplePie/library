@@ -24,6 +24,7 @@ function init() {
 	// Initialize event listeners
 	const container = document.querySelector('.container');
 	container.addEventListener('click', getClick);
+	container.addEventListener('submit', validateForm);
 	displayBooks();
 }
 
@@ -38,10 +39,8 @@ function getClick(e) {
 	}
 	console.log(e.target);
 
-	// Adding book
-	if (e.target.id === 'addBookBtn') addBookToLibrary(e);
 	// Delete book
-	else if (e.target.className === 'delete-book-btn') removeBookFromLibrary(e);
+	if (e.target.className === 'delete-book-btn') removeBookFromLibrary(e);
 	// Toggle status
 	else if (e.target.className === 'toggle-status-btn') changeReadStatus(e);
 
@@ -124,17 +123,13 @@ function createBookCard(libraryWrapper, book) {
 	bookCard.appendChild(toolBox);
 }
 
-function addBookToLibrary (e) {
-	e.preventDefault();
-	// This will push new books to library
+function addBookToLibrary (form) {
 
-	// This will be used for resetting form
-	const addBookForm = document.querySelector('#addBookForm');
 	// This will select all fields
-	const titleInput = document.querySelector('#title');
-	const authorInput = document.querySelector('#author');
-	const pagesInput = document.querySelector('#pages');
-	const statusSelect = document.querySelector('#status');
+	const titleInput = form.querySelector('#title');
+	const authorInput = form.querySelector('#author');
+	const pagesInput = form.querySelector('#pages');
+	const statusSelect = form.querySelector('#status');
 
 	// this will assign the user input and generated uuid for the book
 	const id = crypto.randomUUID();
@@ -174,4 +169,53 @@ function changeReadStatus(e) {
 	})
 }
 
+function validateForm(e) {
+	e.preventDefault();
+	const form = e.target.closest("form");
+	const isTitleValid = checkTitleLength(form) && checkAuthorLength(form) && checkPageCount(form);
+	if (isTitleValid) addBookToLibrary(form);
+}
+
+function checkTitleLength(form) {
+	const title = form.querySelector('#title');
+	title.reportValidity();
+	if (title.validity.tooShort) {
+		title.setCustomValidity("Your title is dwarf should be 5");
+		return false;
+	} else if (title.validity.valueMissing) {
+		title.setCustomValidity("Dawg, there is no book without title.");
+		return false;
+	} else {
+		title.setCustomValidity("");
+	}
+	return true;
+}
+
+function checkAuthorLength(form) {
+	const author = form.querySelector('#author');
+	author.reportValidity();
+	if (author.validity.valueMissing) {
+		author.setCustomValidity("The author must have been the wind gng.");
+		return false;
+	} else {
+		author.setCustomValidity("");
+		return true;
+	}
+}
+
+function checkPageCount(form) {
+	const pages = form.querySelector('#pages');
+	console.log(pages)
+	pages.reportValidity();
+	if (pages.validity.rangeUnderflow) {
+		pages.setCustomValidity("No pages book CHAMP?");
+		return false;
+	} else if (pages.validity.valueMissing) {
+		pages.setCustomValidity("Bro, enter the page.");
+		return false;
+	} else {
+		pages.setCustomValidity("");
+		return true;
+	}
+}
 init();
