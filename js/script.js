@@ -24,6 +24,7 @@ function init() {
 	// Initialize event listeners
 	const container = document.querySelector('.container');
 	container.addEventListener('click', getClick);
+	container.addEventListener("input", validateInput);
 	container.addEventListener('submit', validateForm);
 	displayBooks();
 }
@@ -37,7 +38,6 @@ function getClick(e) {
 	} else if (e.target.id === 'closeBookModal') {
 		closeBookModal();
 	}
-	console.log(e.target);
 
 	// Delete book
 	if (e.target.className === 'delete-book-btn') removeBookFromLibrary(e);
@@ -157,7 +157,6 @@ function removeBookFromLibrary (e) {
 	// Update the UI after change
 	const bookCard = document.querySelector(`[data-book-id="${bookId}"]`);
 	bookCard.remove();
-	console.log(myLibrary)
 }
 
 function changeReadStatus(e) {
@@ -205,7 +204,6 @@ function checkAuthorLength(form) {
 
 function checkPageCount(form) {
 	const pages = form.querySelector('#pages');
-	console.log(pages)
 	pages.reportValidity();
 	if (pages.validity.rangeUnderflow) {
 		pages.setCustomValidity("No pages book CHAMP?");
@@ -218,4 +216,44 @@ function checkPageCount(form) {
 		return true;
 	}
 }
+
+function validateInput(e) {
+	e.target.reportValidity();
+	if (e.target.closest("#title")) {
+		checkTitleInput(e.target);
+	} else if (e.target.closest("#author")) {
+		checkAuthorInput(e.target);
+	} else if (e.target.closest("#pages")) {
+		checkPageInput(e.target);
+	}
+}
+
+function checkTitleInput(title) {
+	if (title.validity.tooShort) {
+		title.setCustomValidity("Your title is dwarf should be 5");
+	} else if (title.validity.valueMissing) {
+		title.setCustomValidity("Dawg, there is no book without title.");
+	} else {
+		title.setCustomValidity("");
+	}
+}
+
+function checkAuthorInput(author) {
+	if (author.validity.valueMissing) {
+		author.setCustomValidity("The author must have been the wind gng.");
+	} else {
+		author.setCustomValidity("");
+	}
+}
+
+function checkPageInput(pages) {
+	if (pages.validity.rangeUnderflow) {
+		pages.setCustomValidity("No pages book CHAMP?");
+	} else if (pages.validity.valueMissing) {
+		pages.setCustomValidity("Bro, enter the page.");
+	} else {
+		pages.setCustomValidity("");
+	}
+}
+
 init();
