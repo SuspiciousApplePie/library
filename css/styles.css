@@ -151,3 +151,11 @@
 .modal-container .toolbox {
 	justify-self: end;
 }
+
+input:valid {
+	border: 3px dashed #333;
+}
+
+input:invalid {
+	border: 3px dotted #333;
+}
